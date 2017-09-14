@@ -6,7 +6,7 @@
 	<meta name="description" content="">
 	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 	
-	<title>About - Progressus Bootstrap template</title>
+	<title>Charity Search</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -32,7 +32,7 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Progressus HTML5 template"></a>
+				<a class="navbar-brand" href="index.html"><img src="" alt="iWTH"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
@@ -60,7 +60,7 @@
 
 		<ol class="breadcrumb">
 			<li><a href="index.html">Home</a></li>
-			<li class="active">About</li>
+			<li class="active">Search</li>
 		</ol>
 
 		<div class="row">
@@ -70,7 +70,7 @@
 				<header class="page-header">
 					<h1 class="page-title">Charity Search</h1>
 				</header>
-				 <!-- Row for Searching New York Times -->
+				 <!-- Row for Charity API -->
 			    <div class="row">
 			      <div class="col-sm-12">
 			        <br>
@@ -90,25 +90,25 @@
 			                <input type="text" class="form-control" id="search-term">
 			              </div>
 
-			               <!-- Here we capture the Start Year Parameter-->
+			               <!-- Here we capture the Category Parameter-->
 			              <div class="form-group">
 			                <label for="category">Category:</label>
 			                <input type="text" class="form-control" id="state">
 			              </div>
 
-			              <!-- Here we capture the Start Year Parameter-->
+			              <!-- Here we capture the State Parameter-->
 			              <div class="form-group">
 			                <label for="state">State: (Two Letter Abbreviation)</label>
 			                <input type="text" class="form-control" id="state">
 			              </div>
 
-			              <!-- Here we capture the End Year Parameter -->
+			              <!-- Here we capture the City Parameter -->
 			              <div class="form-group">
 			                <label for="city">City:</label>
 			                <input type="text" class="form-control" id="city">
 			              </div>
 
-			              <!-- Here we capture the number of records that the user wants to retrieve  -->
+			              <!-- Here we capture the number of charities that the user wants to retrieve  -->
 			              <div class="form-group">
 			                <label for="pwd">Number of Records to Retrieve:</label>
 			                <select class="form-control" id="num-records-select">
@@ -129,20 +129,20 @@
 			      </div>
 			    </div>
 
-			    <!-- This row will handle all of the retrieved articles -->
+			    <!-- This row will handle all of the retrieved charities -->
 			    <div class="row">
 			      <div class="col-sm-12">
 			        <br>
 
-			        <!-- This panel will initially be made up of a panel and wells for each of the articles retrieved -->
+			        <!-- This panel will initially be made up of a panel and wells for each of the charities retrieved -->
 			        <div class="panel panel-primary">
 
-			          <!-- Panel Heading for the retrieved articles box -->
+			          <!-- Panel Heading for the retrieved charities box -->
 			          <div class="panel-heading">
 			            <h3 class="panel-title"><strong><i class="fa fa-table"></i>   Top Charities</strong></h3>
 			          </div>
 
-			          <!-- This main panel will hold each of the resulting articles -->
+			          <!-- This main panel will hold each of the resulting charities -->
 			          <div class="panel-body" id="well-section">
 			          </div>
 			        </div>
@@ -158,11 +158,11 @@
 				<div class="widget">
 					<h4>How To Search</h4>
 					<ul class="list-unstyled list-spaces">
-						<li><a href="">Search Term</a><br><span class="small text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, laborum.</span></li>
-						<li><a href="">State</a><br><span class="small text-muted">Suscipit veniam debitis sed ipsam quia magnam eveniet perferendis nisi.</span></li>
-						<li><a href="">City</a><br><span class="small text-muted">Reprehenderit illum quod unde quo vero ab inventore alias veritatis.</span></li>
-						<li><a href="">Category</a><br><span class="small text-muted">Sed, mollitia earum debitis est itaque esse reiciendis amet cupiditate.</span></li>
-						<li><a href="">Number of Charities</a><br><span class="small text-muted">Delectus, sapiente illo provident quo aliquam nihil beatae dignissimos itaque.</span></li>
+						<li><a href="">Search Term</a><br><span class="small text-muted">Start by inserting a Charity's name or keyword. Example: "humane society" or "cancer"</span></li>
+						<li><a href="">State</a><br><span class="small text-muted">Narrow your search by choosing a specific state.</span></li>
+						<li><a href="">City</a><br><span class="small text-muted">Continue narrowing your search by putting a specific city.</span></li>
+						<li><a href="">Category</a><br><span class="small text-muted"></span></li>
+						<li><a href="">Number of Charities</a><br><span class="small text-muted">Select the number of charities you would like to browse through</span></li>
 					</ul>
 				</div>
 
