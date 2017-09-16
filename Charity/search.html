@@ -83,10 +83,11 @@
 			                <input type="text" class="form-control" id="search-term">
 			              </div>
 
-			               <!-- Here we capture the Category Parameter-->
+
+			              <!-- Here we capture the City Parameter -->
 			              <div class="form-group">
-			                <label for="category">Category:</label>
-			                <input type="text" class="form-control" id="state">
+			                <label for="city">City:</label>
+			                <input type="text" class="form-control" id="city">
 			              </div>
 
 			              <!-- Here we capture the State Parameter-->
@@ -95,10 +96,10 @@
 			                <input type="text" class="form-control" id="state">
 			              </div>
 
-			              <!-- Here we capture the City Parameter -->
+			               <!-- Here we capture the Category Parameter-->
 			              <div class="form-group">
-			                <label for="city">City:</label>
-			                <input type="text" class="form-control" id="city">
+			                <label for="zipcode">Zipcode:</label>
+			                <input type="text" class="form-control" id="zipcode">
 			              </div>
 
 			              <!-- Here we capture the number of charities that the user wants to retrieve  -->
@@ -109,12 +110,14 @@
 										<!-- Setting the option for 5 as default -->
 										<option value="5" selected>5</option>
 										<option value="10">10</option>
-									</select>
+										<option value="25">25</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+							</select>
 			              </div>
 
 			              <!-- Here we have our final submit button -->
-			              <button type="submit" class="btn btn-default" id="run-search"><i class="fa fa-search"></i> Search</button>
-			              <button type="button" class="btn btn-default" id="clear-all"><i class="fa fa-trash"></i> Clear Results</button>
+			              <button type="button" class="btn btn-default" id="run-search"><i class="fa fa-search"></i> Search</button>
 
 			            </form>
 			          </div>
@@ -124,24 +127,21 @@
 
 			    <!-- This row will handle all of the retrieved charities -->
 			    <div class="row">
-			      <div class="col-sm-12">
+			      <div class="col-sm-12" id ="charitySearch">
 			        <br>
 
-			        <!-- This panel will initially be made up of a panel and wells for each of the charities retrieved -->
-			        <div class="panel panel-primary">
-
-			          <!-- Panel Heading for the retrieved charities box -->
-			          <div class="panel-heading">
-			            <h3 class="panel-title"><strong><i class="fa fa-table"></i>   Top Charities</strong></h3>
-			          </div>
-
-			          <!-- This main panel will hold each of the resulting charities -->
-			          <div class="panel-body" id="well-section">
-			          </div>
-			        </div>
 			      </div>
 			    </div>
 				
+
+				<!-- This row will handle all of the retrieved charities -->
+			    <div class="row">
+			      <div class="col-sm-12" id="detailWell">
+			        <br>
+
+			      </div>
+			    </div>
+
 			</article>
 			<!-- /Article -->
 			
@@ -152,12 +152,18 @@
 					<h4>How To Search</h4>
 					<ul class="list-unstyled list-spaces">
 						<li><a href="">Search Term</a><br><span class="small text-muted">Start by inserting a Charity's name or keyword. Example: "humane society" or "cancer"</span></li>
-						<li><a href="">State</a><br><span class="small text-muted">Narrow your search by choosing a specific state.</span></li>
 						<li><a href="">City</a><br><span class="small text-muted">Continue narrowing your search by putting a specific city.</span></li>
-						<li><a href="">Category</a><br><span class="small text-muted"></span></li>
+						<li><a href="">State</a><br><span class="small text-muted">Narrow your search by choosing a specific state.</span></li>
+						<li><a href="">Zipcode</a><br><span class="small text-muted"></span></li>
 						<li><a href="">Number of Charities</a><br><span class="small text-muted">Select the number of charities you would like to browse through</span></li>
 					</ul>
 				</div>
+
+			</aside>
+			<!-- /Sidebar -->
+
+			<!-- Sidebar -->
+			<aside class="col-sm-4 sidebar sidebar-right"  id="savedRecords">
 
 			</aside>
 			<!-- /Sidebar -->
