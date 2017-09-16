@@ -18,6 +18,8 @@
 	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
 	<link rel="stylesheet" href="assets/css/main.css">
 
+
+
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="assets/js/html5shiv.js"></script>
@@ -37,17 +39,10 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="#">Home</a></li>
-					<li><a href="about.html">About</a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="sidebar-left.html">Left Sidebar</a></li>
-							<li class="active"><a href="sidebar-right.html">Right Sidebar</a></li>
-						</ul>
-					</li>
+					<li><a href="search.html">Charity Search</a></li>
 					<li><a href="contact.html">Contact</a></li>
 					<li><a class="btn" href="signin.html">SIGN IN / SIGN UP</a></li>
-				</ul>
+				</ul> 
 			</div><!--/.nav-collapse -->
 		</div>
 	</div> 
@@ -57,15 +52,18 @@
 	<header id="head">
 		<div class="container">
 			<div class="row">
-				<h1 class="lead">iWANTTOHELP</h1>
+				<h1 class="lead" style="font-size: 90px">iWANTTOHELP</h1>
+				<br>
 				<p class="tagline">Already heard of us and ready to donate? <a href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus"></a></p>
+
+		<!-- Stripe Payment Checkout Button -->		
 				<form action="/your-server-side-code" method="POST">
 					<script
   						src="https://checkout.stripe.com/checkout.js" class="stripe-button"
   						data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
-  						data-amount="2000"
-  						data-name="Stripe.com"
-  						data-description="Card Information"
+  						data-amount="1000"
+  						data-name="iWANTTOHELP NOW!!"
+  						data-description="Enter Card Information"
   						data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
   						data-locale="auto"
   						data-zip-code="true">
@@ -73,7 +71,7 @@
 				</form>
 				<br><br>
 				<!--<p><a class="btn btn-default btn-lg" role="button"></a></p>-->
-				<p><a class="btn btn-action btn-lg" role="button"> - or - START YOUR SEARCH HERE</a></p>
+				<p><a id="searchPageBtn" class="btn btn-action btn-lg" role="button" data-target="file:///Users/jeremyjohnson/Desktop/SMUFS/charity_group/Charity/search.html"> - or - START YOUR SEARCH HERE</a></p>
 				<script src="https://js.stripe.com/v3/"></script>
 
 		<!--<form action="/charge" method="post" id="payment-form">
@@ -114,72 +112,31 @@
 				<div class="col-md-3 col-sm-6 highlight">
 					<div class="h-caption"><h4><i class="fa fa-cogs fa-5"></i>Expertly Curated</h4></div>
 					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquid adipisci aspernatur. Soluta quisquam dignissimos earum quasi voluptate. Amet, dignissimos, tenetur vitae dolor quam iusto assumenda hic reprehenderit?</p>
+						<p>In a world full of information and choices, donors suffer from analysis paralysis. We will refine your search from a collection of over 1.6 million charities.</p>
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-6 highlight">
 					<div class="h-caption"><h4><i class="fa fa-flash fa-5"></i>Completely Impartial</h4></div>
 					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, commodi, sequi quis ad fugit omnis cumque a libero error nesciunt molestiae repellat quos perferendis numquam quibusdam rerum repellendus laboriosam reprehenderit! </p>
+						<p>The non-profit and charity space has been merged with ruthless corporate agenda. Hidden underneath the layers of aid, these non-profits advance an underlying agenda for their parent companies. We are completely unbiased and impartial. </p>
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-6 highlight">
-					<div class="h-caption"><h4><i class="fa fa-heart fa-5"></i>Creative Commons</h4></div>
+					<div class="h-caption"><h4><i class="fa fa-heart fa-5"></i>High Impact</h4></div>
 					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, vitae, perferendis, perspiciatis nobis voluptate quod illum soluta minima ipsam ratione quia numquam eveniet eum reprehenderit dolorem dicta nesciunt corporis?</p>
+						<p>Our search and curation algorithms narrow your donation scope to organizations that allocate the highest percentage of their funds to the ACTUAL cause as opposed to overhead and board member salaries.</p>
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-6 highlight">
-					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Author's support</h4></div>
+					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>World Class Support</h4></div>
 					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, excepturi, maiores, dolorem quasi reprehenderit illo accusamus nulla minima repudiandae quas ducimus reiciendis odio sequi atque temporibus facere corporis eos expedita? </p>
+						<p>Our customer experience agents are subject matter experts in the space. Reach out for any questions or concerns. We are standing by to assist you.</p>
 					</div>
 				</div>
 			</div> <!-- /row  -->
 		
 		</div>
 	</div>
-	<!-- /Highlights -->
-
-	<!-- container 
-	<div class="container">
-
-		<h2 class="text-center top-space">Frequently Asked Questions</h2>
-		<br>
-
-		<div class="row">
-			<div class="col-sm-6">
-				<h3>Which code editor would you recommend?</h3>
-				<p>I'd highly recommend you <a href="http://www.sublimetext.com/">Sublime Text</a> - a free to try text editor which I'm using daily. Awesome tool!</p>
-			</div>
-			<div class="col-sm-6">
-				<h3>Nice header. Where do I find more images like that one?</h3>
-				<p>
-					Well, there are thousands of stock art galleries, but personally, 
-					I prefer to use photos from these sites: <a href="http://unsplash.com">Unsplash.com</a> 
-					and <a href="http://www.flickr.com/creativecommons/by-2.0/tags/">Flickr - Creative Commons</a></p>
-			</div>
-		</div> 
-		/row 
-
-		<div class="row">
-			<div class="col-sm-6">
-				<h3>Can I use it to build a site for my client?</h3>
-				<p>
-					Yes, you can. You may use this template for any purpose, just don't forget about the <a href="http://creativecommons.org/licenses/by/3.0/">license</a>, 
-					which says: "You must give appropriate credit", i.e. you must provide the name of the creator and a link to the original template in your work. 
-				</p>
-			</div>
-			<div class="col-sm-6">
-				<h3>Can you customize this template for me?</h3>
-				<p>Yes, I can. Please drop me a line to sergey-at-pozhilov.com and describe your needs in details. Please note, my services are not cheap.</p>
-			</div>
-		</div> </row -->
-
-		<div class="jumbotron top-space">
-			<h4>Read about the fraud and misleading practices of the non-profit and charitable donation space. Many large non-profits are controlled by Fortune 500 companies seeking to accelerate their own agendas by influence.</h4>
-     		<p class="text-right"><a class="btn btn-primary btn-large">Learn more »</a></p>
-  		</div>
 
 </div>	<!-- /container -->
 	
@@ -210,31 +167,30 @@
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
-							<p>+234 23 9873237<br>
-								<a href="mailto:#">some.email@somewhere.com</a><br>
+							<p>(469) 730-6968<br>
+								<a href="mailto:#">iWTH@gmail.com</a><br>
 								<br>
-								234 Hidden Pond Road, Ashland City, TN 37015
+								2919 Commerce Street, Dallas, TX 75226
 							</p>	
 						</div>
 					</div>
 
 					<div class="col-md-3 widget">
-						<h3 class="widget-title">Follow me</h3>
+						<h3 class="widget-title">Follow Us!</h3>
 						<div class="widget-body">
 							<p class="follow-me-icons">
-								<a href=""><i class="fa fa-twitter fa-2"></i></a>
-								<a href=""><i class="fa fa-dribbble fa-2"></i></a>
-								<a href=""><i class="fa fa-github fa-2"></i></a>
-								<a href=""><i class="fa fa-facebook fa-2"></i></a>
+								<a href="https://twitter.com/Jhockey195"><i class="fa fa-twitter fa-2"></i></a>
+								<a href="https://www.instagram.com/mittens_crew_19/?hl=en"><i class="fa fa-instagram fa-2"></i></a>
+								<a href="https://github.com/theactualjj"><i class="fa fa-github fa-2"></i></a>
+								<a href="https://www.facebook.com/IHDKY?ref=bookmarks"><i class="fa fa-facebook fa-2"></i></a>
 							</p>	
 						</div>
 					</div>
 
 					<div class="col-md-6 widget">
-						<h3 class="widget-title">Text widget</h3>
+						<h3 class="widget-title">Read about "The Unbearable Lightness of Non-Profit Propaganda" here.</h3>
 						<div class="widget-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, dolores, quibusdam architecto voluptatem amet fugiat nesciunt placeat provident cumque accusamus itaque voluptate modi quidem dolore optio velit hic iusto vero praesentium repellat commodi ad id expedita cupiditate repellendus possimus unde?</p>
-							<p>Eius consequatur nihil quibusdam! Laborum, rerum, quis, inventore ipsa autem repellat provident assumenda labore soluta minima alias temporibus facere distinctio quas adipisci nam sunt explicabo officia tenetur at ea quos doloribus dolorum voluptate reprehenderit architecto sint libero illo et hic.</p>
+     					<p class="text-center"><a class="btn btn-primary btn-large" href="http://www.huffingtonpost.com/daniela-kon/unbearable-lightness-non-profit-propaganda_b_7980336.html">Learn more »</a></p>
 						</div>
 					</div>
 
@@ -250,8 +206,7 @@
 						<div class="widget-body">
 							<p class="simplenav">
 								<a href="#">Home</a> | 
-								<a href="about.html">About</a> |
-								<a href="sidebar-right.html">Sidebar</a> |
+								<a href="search.html">Search</a> |
 								<a href="contact.html">Contact</a> |
 								<b><a href="signup.html">Sign up</a></b>
 							</p>
@@ -261,7 +216,7 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="text-right">
-								Copyright &copy; 2014, Your name. Designed by <a href="http://gettemplate.com/" rel="designer">gettemplate</a> 
+								Copyright &copy; 2017, iWTH Designed by <a href="http://gettemplate.com/" rel="designer">gettemplate</a> 
 							</p>
 						</div>
 					</div>
@@ -273,14 +228,16 @@
 	</footer>	
 		
 
-
-
-
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+  		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  		crossorigin="anonymous"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script src="assets/js/headroom.min.js"></script>
 	<script src="assets/js/jQuery.headroom.min.js"></script>
 	<script src="assets/js/template.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+    <script type="text/javascript" src="assets/js/cn-api-calls.js"></script>
 </body>
 </html>
