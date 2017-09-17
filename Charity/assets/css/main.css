@@ -85,6 +85,7 @@ img.pull-left { margin-right: 10px; }
 	width: 100px;
 }
 
+
 /*.StripeElement {
   background-color: white;
   padding: 8px 12px;
@@ -106,3 +107,33 @@ img.pull-left { margin-right: 10px; }
 .StripeElement--webkit-autofill {
   background-color: #fefde5 !important;
 }	*/
+
+/*============================================================================*/
+/*============================================================================*/
+/*============================================================================*/
+
+/* David's CN Additions */
+
+.charityListColumnHeader{
+	padding-bottom: 3px;
+	vertical-align: middle;
+}
+	
+.charityListColumnHeaderItem{
+	font-weight: bold;
+	text-decoration: underline; 
+}
+
+.charityListing{
+	padding-top: 10px;
+}
+
+.charityDetailListing{
+	padding-top: 2px;
+	padding-bottom: 10px;
+}
+
+#charityDetailPanel{
+	padding-bottom: 10px;
+	padding-right: 10px;
+}
