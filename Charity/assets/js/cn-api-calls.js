@@ -9,7 +9,21 @@ var config = {
 };
 firebase.initializeApp(config);
 
+var charityFirebaseData = firebase.database();
+var firebaseKey = "";
+var saveCharityName = "";
+var saveCharityURL = "";
+var userName = "";
+var userComment = "";
+var userDonation = "";
+var myMapLat = "";
+var myMapLng = "";
+var myMapLatLng = "";
+var mapCharityAddress = "";
+
 function charitySearch() {
+
+    firebaseKey = "";
 
     // If a previous seach exists, remove it
     $("#searchResultsPanel").remove();
@@ -176,12 +190,16 @@ function charitySearch() {
 
 function getCharityDetail(charityEIN){
 
-    // If there's already a Charity Detail Panel, get rid of it
+    // // If there's already a Charity Detail Panel, get rid of it
     $("#detailWell").empty();
 
     $("#charityDetail1Div").empty();
     $("#charityDetail2Div").empty();
     $("#charityDetail3Div").empty();
+
+    saveCharityName = "";
+    saveCharityURL = "";
+
     // Build the URL for the second API call, this one for getting the
     // charity's detailed data. 
 
@@ -194,15 +212,13 @@ function getCharityDetail(charityEIN){
         'app_key': "0c71a6ac17b03675853b689acc2f37ee",
         });
 
-    console.log ("Detail Request URL: " + detailURL);
     // Performing GET requests to the Charity Navigator API and logging the responses to the console
     $.ajax({
         url: detailURL,
         method: "GET"
         }).done(function(responseDetail) {
-            console.log(responseDetail);
-            console.log ("==================================");
 
+            console.log (responseDetail);
             // Create the panel body where the detailed information will be put
             var charityDetailPanelBody = $('<div>');
             charityDetailPanelBody.addClass('panel-body');
@@ -254,8 +270,9 @@ function getCharityDetail(charityEIN){
             var col2Div = $('<div>');
             col2Div.addClass('col-sm-4 charityItem');         
 
-            col2Div.html("<a href='" + responseDetail.charityNavigatorURL + "' target='_blank'>" + 
-                responseDetail.charityName + "</a>");
+            saveCharityName = responseDetail.charityName;
+            saveCharityURL = responseDetail.charityNavigatorURL;
+            col2Div.html("<a href='" + saveCharityURL + "' target='_blank'>" + saveCharityName + "</a>");
             newCharityListingDiv1.append(col2Div);
 
             // Charity Label
@@ -304,9 +321,15 @@ function getCharityDetail(charityEIN){
             var newCharityListingLabelDiv2 = $('<div>');            
             newCharityListingLabelDiv2.addClass("row charityListColumnHeaderItem");
 
-            var colBlankAddrDiv = $('<div>');
-            colBlankAddrDiv.addClass('col-sm-1 charityItem');         
-            newCharityListingDiv2.append(colBlankAddrDiv);
+
+            // The map button column (Goes in the label row so it lines up)
+            var colMapBtnDiv = $('<div>');
+            colMapBtnDiv.addClass('col-sm-1 charityItem charityButtons');    
+            newCharityListingDiv2.append(colMapBtnDiv);
+
+            // var colBlankAddrDiv = $('<div>');
+            // colBlankAddrDiv.addClass('col-sm-1 charityItem');         
+            // newCharityListingDiv2.append(colBlankAddrDiv);
             var colBlankAddrLabelDiv = $('<div>');
             colBlankAddrLabelDiv.addClass('col-sm-1 charityItem');         
             newCharityListingLabelDiv2.append(colBlankAddrLabelDiv);
@@ -314,12 +337,21 @@ function getCharityDetail(charityEIN){
             // The charity's address
             var colAddressDiv = $('<div>');
             colAddressDiv.addClass('col-sm-4 charityItem'); 
+            
             if(responseDetail.hasOwnProperty('mailingAddress')){
-                colAddressDiv.text(responseDetail.mailingAddress.streetAddress1 + " " + 
+                
+                var charityAddress = responseDetail.mailingAddress.streetAddress1 + " " + 
                 responseDetail.mailingAddress.city + ", " + 
                 responseDetail.mailingAddress.stateOrProvince + 
-                " " + responseDetail.mailingAddress.postalCode);
+                " " + responseDetail.mailingAddress.postalCode
+
+                mapCharityAddress = charityAddress;
+
+                getCharityMap();
+
+                colAddressDiv.text(charityAddress);
             }
+
             newCharityListingDiv2.append(colAddressDiv);
 
             // The charity's address label
@@ -393,6 +425,39 @@ function getCharityDetail(charityEIN){
             // Add all the columns to the charityDetail3Div row
             charityDetail3Div.append(newCharityListingDiv3);
 
+            // // Create a div for the map
+            var newCharityListingDiv4 = $('<div>');            
+            newCharityListingDiv4.addClass("row charityListing");
+            newCharityListingDiv4.attr('id','charityMapDiv');
+
+            var newCharityListingLabelDiv4 = $('<div>');            
+            newCharityListingLabelDiv4.addClass("row charityListColumnHeaderItem");
+            // var colMapDiv = $('<img>');
+            // colMapDiv.addClass('col-sm-12 charityItem');
+            // colMapDiv.attr('id','charityMap');
+
+            // var imgMapURL = "";
+            // imgMapURL = 'https://maps.googleapis.com/maps/api/staticmap?';
+
+            // imgMapURL += $.param({
+            //     'key': "AIzaSyCxobnawImV3Vr521y6IyKBG6Kca7iymaA",
+            //     'center': charityAddress,
+            //     'zoom': "13",
+            //     'size': "500x300",
+            //     'maptype': "roadmap",
+            //     });
+
+            // imgMapURL += "&markers=color:blue%7Clabel:S%7C";
+            // imgMapURL += myMapLat + "," + myMapLng;
+            // console.log (imgMapURL);
+
+            // colMapDiv.attr('src',imgMapURL);
+            // colMapDiv.attr('alt',charityAddress);
+
+            // //colMapDiv.attr('src','https://maps.googleapis.com/maps/api/staticmap?center=3910+Harry+Hines+Boulevard,Dallas,TX&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C32.8076949,-96.8124691&key=AIzaSyCxobnawImV3Vr521y6IyKBG6Kca7iymaA')
+
+            // newCharityListingDiv4.append(colMapDiv);
+
             charityDetailPanelBody.append(charityDetail1LabelsDiv);
             charityDetailPanelBody.append(charityDetail1Div);
             charityDetailPanelBody.append(charityDetail2LabelsDiv);
@@ -431,15 +496,6 @@ function getCharityDetail(charityEIN){
             userDataDiv.append(colBlankUserData);
 
             var formHTML = "";
-            formHTML = "<form id='userNameInputForm'>";
-            formHTML += "<label for='userNameInput'>User Name:</label>";
-            formHTML += "<input type='text' class='form-control' id='userNameInput'>";
-            formHTML += "</form>";
-
-            var colUserName = $('<div>');
-            colUserName.addClass('col-sm-3 charityItem');
-            colUserName.html(formHTML);
-            userDataDiv.append(colUserName);
 
             formHTML = "<form id='userDonationInputForm'>";
             formHTML += "<label for='userDonationInput'>Amount:</label>";
@@ -447,7 +503,7 @@ function getCharityDetail(charityEIN){
             formHTML += "</form>";
 
             var colUserDonation = $('<div>');
-            colUserDonation.addClass('col-sm-2 charityItem');
+            colUserDonation.addClass('col-sm-5 charityItem');
             colUserDonation.html(formHTML);
             userDataDiv.append(colUserDonation);
 
@@ -463,51 +519,301 @@ function getCharityDetail(charityEIN){
 
             charityDetailPanel.append(userDataDiv);
 
+            charityDetailPanel.append(newCharityListingDiv4);
+
             // Roll up the panel div into the panel detailWell div on the main page
             $("#detailWell").append(charityDetailPanel);
+
+            if (userName !== ""){
+                $("#retrieveUserRecordsInput").val(userName);
+            }
+
+            if (userDonation !== ""){
+                $("#userDonationInput").val(userDonation);
+            }
+            if (userComment !== ""){
+                $("#userCommentInput").val(userComment);
+            }
+
     });
 }
 
 function saveCharityListing(ein){
-    //const database = firebase.database();
-    //const userRecRef = database.ref().child('testing').val();
-    var dataRef = firebase.database();
 
-    dataRef.ref().push({
-        userName: $("#userNameInput").val(),
-        charityEIN: ein,
-        userComment: $("#userCommentInput").val(),
-        userDonation: $("#userDonationInput").val(),
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
+    var donationAmt = $("#userDonationInput").val().trim();
+    var itsNumeric = false;
+    itsNumeric = $.isNumeric(donationAmt);
+    console.log(itsNumeric);
+
+    console.log(donationAmt)
+    // If the user name hasn't been filled in, prompt the user to do so.
+    if ($("#retrieveUserRecordsInput").val().trim() === "") {
+        presentModalMessage("Missing User Name", "Please enter your User Name under Save/Retrieve Records");
+
+    // If the Donation amount is not a number, prompt the user to fix it.
+     } else if (itsNumeric !== true) {
+        presentModalMessage("Invalid Donation Amount", "Please enter a numeric value for the Donation Amount");
+
+    // All is well, proceed with the save
+    } else {
+
+        if (firebaseKey === ""){
+            charityFirebaseData.ref().child('savedCharities').push({
+                userName: $("#retrieveUserRecordsInput").val(),
+                charityEIN: ein,
+                charityName: saveCharityName,
+                charityURL: saveCharityURL,
+                userComment: $("#userCommentInput").val(),
+                userDonation: $("#userDonationInput").val(),
+                dateAdded: firebase.database.ServerValue.TIMESTAMP
+            });
+        } else {
+            //charityFirebaseData.ref().child('savedCharities').push({
+            charityFirebaseData.ref().child('savedCharities/' + firebaseKey).set({
+                userName: $("#retrieveUserRecordsInput").val(),
+                charityEIN: ein,
+                charityName: saveCharityName,
+                charityURL: saveCharityURL,
+                userComment: $("#userCommentInput").val(),
+                userDonation: $("#userDonationInput").val(),
+                dateAdded: firebase.database.ServerValue.TIMESTAMP
+            });
+        }
+
+        var userToRetrieve = $("#retrieveUserRecordsInput").val();
+        // Removed the previous Saved Records panel
+        $("#savedRecords").empty();
+        retrieveUserCharities(userToRetrieve);
+        presentModalMessage("Record Saved!","Your Charity has been saved.");
+    }
+}
+
+function retrieveUserCharities(userName){
+
+    if ($("#retrieveUserRecordsInput").val() !== "") {
+
+        var userCharityData = charityFirebaseData.ref().child('savedCharities');
+        var userCharityQuery = userCharityData
+                                    .orderByChild('userName')
+                                    .equalTo(userName);
+
+        userCharityQuery.on('value', snap => {
+
+            // Remove the previous Saved Records panel
+            $("#userSavedRecordsPanel").remove();
+            $("#savedRecords").empty();
+
+            var userData = snap.val();
+            var userDataKeys = Object.keys(userData);
+
+            // Create the panel body where the saved records will be put
+            var savedRecordsBody = $('<div>');
+            savedRecordsBody.addClass('panel-body charitySearchResults');
+            savedRecordsBody.attr('id','well-savedRecords');
+
+            // Loop through the returned  JSON object and
+            // fill in the panel body row div
+            for (var i = 0; i < userDataKeys.length; i++) {
+
+                var k = userDataKeys[i];
+                var recUserName = userData[k].userName;
+                var recCharityName = userData[k].charityName;
+                var recCharityURL = userData[k].charityURL;
+                var recCharityEIN = userData[k].charityEIN;
+                var recUserComment = userData[k].userComment;
+                var recUserDonation = userData[k].userDonation;
+
+                // Create a new row for the saved record
+                var savedRecordRowDiv = $('<div>');            
+                savedRecordRowDiv.addClass("row charityListing");
+
+                // The save button column
+                var col1Div = $('<div>');
+                col1Div.addClass('col-sm-2 charityItem charityButtons');    
+                var btnEdit = $('<button>');
+                btnEdit.addClass('getSavedRecordDetail');
+                btnEdit.attr('data-index',recCharityEIN);
+                btnEdit.attr('data-firebaseKey',k);
+                btnEdit.attr('data-userName',recUserName);
+                btnEdit.attr('data-userComment',recUserComment);
+                btnEdit.attr('data-userDonation',recUserDonation);
+                btnEdit.html('&#128269');
+                col1Div.append(btnEdit);
+                savedRecordRowDiv.append(col1Div);
+
+                // The charity name
+                var col2Div = $('<div>');
+                col2Div.addClass('col-sm-8 charityItem');         
+                col2Div.text(recCharityName);
+                savedRecordRowDiv.append(col2Div);
+
+                // The save button column
+                var col3Div = $('<div>');
+                col3Div.addClass('col-sm-2 charityItem charityButtons');    
+                var btnDelete = $('<button>');
+                btnDelete.addClass('getDeleteSavedRecord');
+                btnDelete.attr('data-index',recCharityEIN);
+                btnDelete.attr('data-firebaseKey',k);
+                btnDelete.attr('data-userName',recUserName);
+                btnDelete.attr('data-userComment',recUserComment);
+                btnDelete.attr('data-userDonation',recUserDonation);
+                btnDelete.html('&#128473');
+                col3Div.append(btnDelete);
+                savedRecordRowDiv.append(col3Div);
+
+                // Append the Saved Record row to the body
+                savedRecordsBody.append(savedRecordRowDiv);
+
+            }
+            
+            // Create a div for the saved records panel
+            var savedRecordsPanel = $('<div>');
+            savedRecordsPanel.addClass('panel panel-primary');
+            savedRecordsPanel.attr('id','userSavedRecordsPanel'); 
+
+            // Create a div for the saved records panel header
+            var savedRecordsPanelHeader = $('<div>');
+            savedRecordsPanelHeader.addClass('panel-heading');
+            // Create an h3 for the search results panel header text
+            var savedRecordsPanelTitle = $('<div>');
+            savedRecordsPanelTitle.html("<h3 class='panel-title'><strong><i class='fa  fa-list-alt'></i>   Your Saved Charities</strong></h3>");
+
+            // Roll up the title and header div into the panel
+            savedRecordsPanelHeader.append(savedRecordsPanelTitle);
+            savedRecordsPanel.append(savedRecordsPanelHeader);
+
+            // Roll up the panel body div into the panel
+            savedRecordsPanel.append(savedRecordsBody);
+            $("#savedRecords").append(savedRecordsPanel);
+        });
+
+        // If a previous seach exists, remove it
+        $("#searchResultsPanel").remove();
+        // If there's already a Charity Detail Panel, get rid of it
+        $("#detailWell").empty();
+        $("#charityDetail1Div").empty();
+        $("#charityDetail2Div").empty();
+        $("#charityDetail3Div").empty();
+
+    } else {
+        // If the user name hasn't been filled in, prompt the user to do so.
+        $("#mUserName").modal();
+    }
+
+}
+
+function deleteSavedRecord(deleteMe){
+    console.log ("Got into the deleteSavedRecord function for " + deleteMe);
+
+    charityFirebaseData.ref().child('savedCharities/' + firebaseKey).remove();
+    presentModalMessage("Record Deleted!","Your Charity has been deleted.");
+}
+
+function getCharityMap(){
+
+    var mapURL = "https://maps.googleapis.com/maps/api/geocode/json?";
+    
+    mapURL += $.param({
+        'key': "AIzaSyCxobnawImV3Vr521y6IyKBG6Kca7iymaA",
+        'address': mapCharityAddress,
+    });
+
+    $.ajax({
+        url: mapURL,
+        method: "GET"
+    }).done(function(googleResponse) {
+
+        console.log(googleResponse);
+        console.log("Lat: " + googleResponse.results[0].geometry.location.lat);
+        myMapLat = googleResponse.results[0].geometry.location.lat;
+        console.log("Lng: " + googleResponse.results[0].geometry.location.lng);
+        myMapLng = googleResponse.results[0].geometry.location.lng;
+        myMapLatLng = "{lat: " + myMapLat + ", lng: " + myMapLng + "}";
+        console.log(myMapLatLng);
+        //initMap(myMapLatLng);
+
+
+        var colMapDiv = $('<img>');
+        colMapDiv.addClass('col-sm-12 charityItem');
+        colMapDiv.attr('id','charityMap');
+
+        var imgMapURL = "";
+        imgMapURL = 'https://maps.googleapis.com/maps/api/staticmap?';
+
+        imgMapURL += $.param({
+            'key': "AIzaSyCxobnawImV3Vr521y6IyKBG6Kca7iymaA",
+            'center': mapCharityAddress,
+            'zoom': "13",
+            'size': "500x300",
+            'maptype': "roadmap",
+            });
+
+        //imgMapURL += "&markers=color:green%7Clabel:S%7C";
+        imgMapURL += "&markers=color:green%7Clabel:%7C";
+        imgMapURL += myMapLat + "," + myMapLng;
+        console.log (imgMapURL);
+
+        colMapDiv.attr('src',imgMapURL);
+        colMapDiv.attr('alt',mapCharityAddress);
+
+        $("#charityMapDiv").append(colMapDiv);
+
     });
 }
 
+function presentModalMessage(msgTitle, msgPrompt){
+
+    console.log("got this far");
+    var messageTitle = "<h4 class='modal-title'>" + msgTitle + "</h4>";
+    $("#mTitle").html(messageTitle);
+
+    var messagePrompt = "<p>" + msgPrompt + "</p>";
+    $("#mBody").html(messagePrompt);
+
+    $("#modalMessage").modal();
+
+}
+
 $("#run-search").click(function(){
+    firebaseKey = "";
+    userName = "";
+    userComment = "";
+    userDonation = "";
     charitySearch();
 });
 
 $(document).on("click", "button.getDetail", function() {
+    firebaseKey = "";
+    userName = "";
+    userComment = "";
+    userDonation = "";
+    getCharityDetail($(this).attr("data-index"));
+});
+
+$(document).on("click", "button.getSavedRecordDetail", function() {
+    firebaseKey = $(this).attr("data-firebaseKey");
+    userName = $(this).attr("data-userName");
+    userComment = $(this).attr("data-userComment");
+    userDonation = $(this).attr("data-userDonation");
     getCharityDetail($(this).attr("data-index"));
 });
 
 $(document).on("click", "button.saveDetail", function() {
+    userName = "";
+    userComment = "";
+    userDonation = "";
     saveCharityListing($(this).attr("data-index"));
 });
 
-// function retrieveUserCharities(){
- 
-// var dataRef = firebase.database();
+$(document).on("click", "button.getDeleteSavedRecord", function() {
+    firebaseKey = $(this).attr("data-firebaseKey");
+    console.log ("Deleting " + firebaseKey);
+    deleteSavedRecord(firebaseKey);
+}); 
 
-//     // dataRef.ref().push({
-//     //     userName: $("#userNameInput").val(),
-//     //     charityEIN: ein,
-//     //     userComment: $("#charityCommentInput").val(),
-//     //     userDonation: $("#charityDonationInput").val(),
-//     //     dateAdded: firebase.database.ServerValue.TIMESTAMP
-//     // });
-
-//     // Find all dinosaurs whose height is exactly 25 meters.
-//     var userDataRef = firebase.database().ref();
-//     userDataRef.orderByChild("userName").equalTo("David").on("child_added", function(gotcha) {
-//     console.log(gotcha.);    
-// }
+$(document).on("click", "#btnSavedRecords", function() {
+    // Remove the previous Saved Records panel
+    $("#savedRecords").empty();
+    var userToRetrieve = $("#retrieveUserRecordsInput").val();
+    retrieveUserCharities(userToRetrieve);
+});
