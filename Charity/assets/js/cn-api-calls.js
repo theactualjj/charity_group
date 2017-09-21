@@ -212,13 +212,12 @@ function getCharityDetail(charityEIN){
         'app_key': "0c71a6ac17b03675853b689acc2f37ee",
         });
 
-    // Performing GET requests to the Charity Navigator API and logging the responses to the console
+    // Performing GET requests to the Charity Navigator API
     $.ajax({
         url: detailURL,
         method: "GET"
         }).done(function(responseDetail) {
 
-            console.log (responseDetail);
             // Create the panel body where the detailed information will be put
             var charityDetailPanelBody = $('<div>');
             charityDetailPanelBody.addClass('panel-body');
@@ -518,9 +517,7 @@ function saveCharityListing(ein){
     var donationAmt = $("#userDonationInput").val().trim();
     var itsNumeric = false;
     itsNumeric = $.isNumeric(donationAmt);
-    console.log(itsNumeric);
 
-    console.log(donationAmt)
     // If the user name hasn't been filled in, prompt the user to do so.
     if ($("#retrieveUserRecordsInput").val().trim() === "") {
         presentModalMessage("Missing User Name", "Please enter your User Name under Save/Retrieve Records");
@@ -672,14 +669,12 @@ function retrieveUserCharities(userName){
 
     } else {
         // If the user name hasn't been filled in, prompt the user to do so.
-        $("#mUserName").modal();
+        presentModalMessage("User Name Missing","You'll need to enter your User Name in order to retrieve your Saved Charities.");
     }
 
 }
 
 function deleteSavedRecord(deleteMe){
-    console.log ("Got into the deleteSavedRecord function for " + deleteMe);
-
     charityFirebaseData.ref().child('savedCharities/' + firebaseKey).remove();
     presentModalMessage("Record Deleted!","Your Charity has been deleted.");
 }
@@ -698,15 +693,9 @@ function getCharityMap(){
         method: "GET"
     }).done(function(googleResponse) {
 
-        console.log(googleResponse);
-        console.log("Lat: " + googleResponse.results[0].geometry.location.lat);
         myMapLat = googleResponse.results[0].geometry.location.lat;
-        console.log("Lng: " + googleResponse.results[0].geometry.location.lng);
         myMapLng = googleResponse.results[0].geometry.location.lng;
         myMapLatLng = "{lat: " + myMapLat + ", lng: " + myMapLng + "}";
-        console.log(myMapLatLng);
-        //initMap(myMapLatLng);
-
 
         var colMapDiv = $('<img>');
         colMapDiv.addClass('col-sm-12 charityItem');
@@ -726,7 +715,6 @@ function getCharityMap(){
         //imgMapURL += "&markers=color:green%7Clabel:S%7C";
         imgMapURL += "&markers=color:green%7Clabel:%7C";
         imgMapURL += myMapLat + "," + myMapLng;
-        console.log (imgMapURL);
 
         colMapDiv.attr('src',imgMapURL);
         colMapDiv.attr('alt',mapCharityAddress);
@@ -738,7 +726,6 @@ function getCharityMap(){
 
 function presentModalMessage(msgTitle, msgPrompt){
 
-    console.log("got this far");
     var messageTitle = "<h4 class='modal-title'>" + msgTitle + "</h4>";
     $("#mTitle").html(messageTitle);
 
@@ -781,7 +768,6 @@ $(document).on("click", "button.saveDetail", function() {
 
 $(document).on("click", "button.getDeleteSavedRecord", function() {
     firebaseKey = $(this).attr("data-firebaseKey");
-    console.log ("Deleting " + firebaseKey);
     deleteSavedRecord(firebaseKey);
 }); 
 
