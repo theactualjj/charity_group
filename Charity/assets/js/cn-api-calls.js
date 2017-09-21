@@ -432,31 +432,6 @@ function getCharityDetail(charityEIN){
 
             var newCharityListingLabelDiv4 = $('<div>');            
             newCharityListingLabelDiv4.addClass("row charityListColumnHeaderItem");
-            // var colMapDiv = $('<img>');
-            // colMapDiv.addClass('col-sm-12 charityItem');
-            // colMapDiv.attr('id','charityMap');
-
-            // var imgMapURL = "";
-            // imgMapURL = 'https://maps.googleapis.com/maps/api/staticmap?';
-
-            // imgMapURL += $.param({
-            //     'key': "AIzaSyCxobnawImV3Vr521y6IyKBG6Kca7iymaA",
-            //     'center': charityAddress,
-            //     'zoom': "13",
-            //     'size': "500x300",
-            //     'maptype': "roadmap",
-            //     });
-
-            // imgMapURL += "&markers=color:blue%7Clabel:S%7C";
-            // imgMapURL += myMapLat + "," + myMapLng;
-            // console.log (imgMapURL);
-
-            // colMapDiv.attr('src',imgMapURL);
-            // colMapDiv.attr('alt',charityAddress);
-
-            // //colMapDiv.attr('src','https://maps.googleapis.com/maps/api/staticmap?center=3910+Harry+Hines+Boulevard,Dallas,TX&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C32.8076949,-96.8124691&key=AIzaSyCxobnawImV3Vr521y6IyKBG6Kca7iymaA')
-
-            // newCharityListingDiv4.append(colMapDiv);
 
             charityDetailPanelBody.append(charityDetail1LabelsDiv);
             charityDetailPanelBody.append(charityDetail1Div);
@@ -771,7 +746,6 @@ function presentModalMessage(msgTitle, msgPrompt){
     $("#mBody").html(messagePrompt);
 
     $("#modalMessage").modal();
-
 }
 
 $("#run-search").click(function(){
