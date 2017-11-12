@@ -1,5 +1,4 @@
-# charity_group
-
+# Charity Aggregator
 Overview
 
 This applicated is a front end web application that allows a viewer to search for a charity group. 
